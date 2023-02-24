@@ -1,0 +1,95 @@
+<!-- 2. Create captcha using javascript? -->
+
+<html>
+    <head>
+        <title>
+            Task p2
+        </title>
+    </head>
+
+    <body>
+
+        
+        Enter Captcha:- <input type="text" id="enter-captcha">
+        <p id="generated-captcha"></p>
+        <button id="button" onclick="check()">SUBMIT</button>
+        <p id="output"></p>
+
+        <script>
+            function check(){
+                let input = document.getElementById("enter-captcha").value;
+                let captcha = document.getElementById("generated-captcha").innerHTML;
+
+                console.log(input + " " + captcha)
+
+                var output = document.getElementById("output");
+                output.style.fontWeight = "bold";
+
+                if(input==captcha){
+                    output.innerText = "Match";    
+                    output.style.color = "green" ;              
+                }else{
+                    output.innerText = "Does Not Match";
+                    output.style.color = "red" ;
+                }
+            }
+
+            function generate_captcha(){
+                const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                let result = "";
+
+                for(i=0;i<6;i++){
+                    let index = Math.floor( Math.random() * characters.length );
+                    result += characters.charAt(index);    
+                }
+                
+                document.getElementById("generated-captcha").innerText = result;
+
+                document.getElementById("button").style.cursor = "pointer"                
+
+                var canv = document.createElement("canvas");
+
+                canv.id = "canvas"                      
+                canv.style.backgroundColor = "silver"    
+                canv.height = 30
+                canv.width = 100   
+                canv.style.paddingLeft = 30            
+                
+                var ctx = canv.getContext("2d");
+                ctx.font = "20px Georgia";
+                ctx.strokeText(result, 0, 20);            
+                
+                let div = document.createElement("div");
+                
+                let img = document.createElement("img");
+
+                img.src = "reset.png"
+                img.style.height = '20px'
+                img.style.width = '20px'
+                img.style.margin = "auto 0"
+                img.style.paddingLeft = 10                
+                
+                img.onclick = function(){
+
+                    document.getElementById("canvas").remove();
+                    document.getElementsByTagName("img")[0].remove();
+                    document.getElementById("output").innerHTML = "";
+                    document.getElementById("enter-captcha").value = "";
+
+                    generate_captcha();
+                }
+                
+                document.body.appendChild(div);
+                div.appendChild(canv);
+                div.appendChild(img);                
+                div.style.display = "flex"                
+            }
+        </script>
+
+        <script>
+            generate_captcha();
+        </script>
+
+    </body>
+
+</html>
