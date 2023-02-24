@@ -1,0 +1,118 @@
+<!-- 3. Create a Stopwatch program in javascript? -->
+
+<html>
+    <head>
+        <title>Task- Create a Stopwatch program in javascript?</title>
+    </head>
+
+    <body>
+
+        <div class="timer-container">
+            <span id="hour">00</span>
+            <span>:</span>
+            <span id="min">00</span>
+            <span>:</span>
+            <span id="sec">00</span>
+            <span>:</span>
+            <span id="ms">00</span>
+        </div>
+
+        <div class="button-container">
+            <button onclick="start()" id="start">START</button>
+            <button onclick="stop()" id="stop">STOP</button>
+            <button onclick="reset()" id="reset">RESET</button>
+        </div>
+        
+
+        <script>
+            var timer;
+            function start(){
+                document.getElementById("start").disabled = true;
+
+                let hour = parseInt(document.getElementById("hour").innerHTML);
+                let min = parseInt(document.getElementById("min").innerHTML);
+                let sec = parseInt(document.getElementById("sec").innerHTML);
+                let ms = parseInt(document.getElementById("ms").innerHTML);
+
+                timer = setInterval(
+                    function(){                                            
+
+                        ms++;
+
+                        console.log(hour,min,sec)
+
+                        if(ms==100){
+                            sec++;
+                            ms=0;
+                        }
+
+                        if(sec==60){
+                            min++;
+                            sec=0;
+                        }
+
+                        if(min==60){
+                            hour++;
+                            min=0;
+                        }
+
+                        if(hour==12){
+                            hour='00';
+                            min='00';
+                            sec='00';
+                            ms='00';
+                        }
+                                        
+                            document.getElementById("hour").innerHTML = hour<10 ? '0'+hour : hour;
+                            document.getElementById("min").innerHTML = min<10 ? '0'+ min : min;
+                            document.getElementById("sec").innerHTML = sec<10 ? '0'+ sec : sec;
+                            document.getElementById("ms").innerHTML = ms<10 ? '0'+ms : ms;                    
+
+                    },10)
+            }            
+
+        </script>
+
+        <script>
+            function stop(){
+                clearInterval(timer);
+                document.getElementById("start").disabled = false;            
+            }
+        </script>
+
+        <script>
+            function reset(){
+                clearInterval(timer);
+                document.getElementById("hour").innerHTML = '00';
+                document.getElementById("min").innerHTML = '00';
+                document.getElementById("sec").innerHTML = '00';
+                document.getElementById("ms").innerHTML = '00';
+                document.getElementById("start").disabled = false;
+            }
+        </script>
+
+<!-- Desinging using js -->
+
+        <script>
+            document.body.style.backgroundColor = "aqua";    
+            document.body.style.textAlign = "center";
+            document.body.style.margin = "50px"
+
+            let button = document.getElementsByTagName("button");
+
+            for(i=0;i<button.length;i++){
+                button[i].style.borderRadius = '10px';
+                button[i].style.color = "darkgoldenrod";
+                button[i].style.padding = "10px 20px";
+            }
+
+            let span = document.getElementsByTagName("span");
+
+            for(i=0;i<span.length;i++){
+                span[i].style.fontSize = '50px'
+            }
+
+        </script>
+
+    </body>
+</html>
